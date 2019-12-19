@@ -3,13 +3,14 @@ package models;
 import javax.swing.JComponent;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 
 public class PaintingAreaModel extends JComponent
@@ -19,9 +20,13 @@ public class PaintingAreaModel extends JComponent
     
     private int currentX, oldX;
     private int currentY, oldY;
-
+    
+    Dimension screenSize;
+    
     public PaintingAreaModel() 
     {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
         setDoubleBuffered(false);
         setVisible(true);
         
@@ -47,43 +52,20 @@ public class PaintingAreaModel extends JComponent
                 }
             }
         };
-                
+        
         addMouseListener(listener);
         addMouseMotionListener(listener);
-        /*addMouseListener(new MouseAdapter()
-        {
-            public void mousePressed(MouseEvent event)
-            {
-                oldX = event.getX();
-                oldY = event.getY();
-            }
-        });
-        
-        addMouseMotionListener(new MouseMotionAdapter()
-        {
-            public void mouseDragged(MouseEvent event)
-            {
-                currentX = event.getX();
-                currentY = event.getY();
-                if(G2D != null)
-                {
-                    G2D.drawLine(oldX, oldY, currentX, currentY);
-                    repaint();
-
-                    oldX = currentX;
-                    oldY = currentY;
-                }
-            }
-        });*/
     }
     
-    public void paint(Graphics g)
+    protected void paintComponent(Graphics g)
     {
         if(image == null)
         {
-            image = createImage(getSize().width, getSize().height);
+            image = createImage(screenSize.width, screenSize.height);
+            
             G2D = (Graphics2D)image.getGraphics();
             G2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            
             clear();
         }
         
@@ -92,9 +74,26 @@ public class PaintingAreaModel extends JComponent
     
     public void clear()
     {
-        G2D.setPaint(Color.white);
-        G2D.fillRect(0, 0, getSize().width, getSize().height);
+        G2D.setPaint(Color.WHITE);
+        G2D.fillRect(0, 0, screenSize.width, screenSize.height);
         G2D.setPaint(Color.black);
         repaint();
+    }
+    
+    public Image getImage()
+    {
+        return this.image;
+    }
+    
+    public void setImage(Image image)
+    {
+        this.image = image;
+        setG2DImage();
+        repaint();
+    }
+    
+    private void setG2DImage()
+    {
+        G2D = (Graphics2D)image.getGraphics();
     }
 }
