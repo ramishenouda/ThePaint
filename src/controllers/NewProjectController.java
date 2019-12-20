@@ -3,6 +3,7 @@ package controllers;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -37,8 +38,8 @@ public class NewProjectController
                 {
                     try {
                         File file = model.getSelectedFile();
-                        Image image = ImageIO.read(file);   
-                        ThePaint.ThePaint.paintingAreaController.getModel().setImage(image);        
+                        BufferedImage image = ImageIO.read(file);   
+                        ThePaint.ThePaint.workingAreaController.getModel().setImage(image);        
                     } catch(IOException error) {
                         System.out.println(error);
                     }
