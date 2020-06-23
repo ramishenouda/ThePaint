@@ -32,7 +32,13 @@ git clone https://github.com/ramishenouda/ThePaint.git
 2. Open the project directory using netbeans
 
 ```
-Enjoy.
+The starting point (The main function) is located at src > ThePaint > ThePaint.Java
+```
+
+3. Run the project using netbeans.
+
+```
+F6/Shift-F6
 ```
 
 ## Project Presentation
