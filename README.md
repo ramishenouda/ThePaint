@@ -11,7 +11,7 @@
 
 The Paint is a painting program with basic functions.
 - Drawing on existing image.
-- Creating blank image and draw on it.
+- Creating a blank image and draw on it.
 
 ### Prerequisites
 
